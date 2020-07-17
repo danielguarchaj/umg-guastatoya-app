@@ -1,0 +1,6 @@
+<h1>Componente noticias</h1>
+<ul>
+    <li ng-repeat="noticia in vm.noticias track by $index">
+        <strong>{{noticia.id}}.</strong>{{noticia.nombre}}
+    </li>
+</ul>

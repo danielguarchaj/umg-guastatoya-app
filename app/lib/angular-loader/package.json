@@ -2,7 +2,7 @@
   "_args": [
     [
       "angular-loader@1.7.5",
-      "C:\\Users\\viaro\\daniel\\angular-apps\\donations"
+      "C:\\Users\\viaro\\daniel\\umg-guastatoya\\umg-guastatoya-app"
     ]
   ],
   "_from": "angular-loader@1.7.5",
@@ -26,7 +26,7 @@
   ],
   "_resolved": "https://registry.npmjs.org/angular-loader/-/angular-loader-1.7.5.tgz",
   "_spec": "1.7.5",
-  "_where": "C:\\Users\\viaro\\daniel\\angular-apps\\donations",
+  "_where": "C:\\Users\\viaro\\daniel\\umg-guastatoya\\umg-guastatoya-app",
   "author": {
     "name": "Angular Core Team",
     "email": "angular-core+npm@google.com"
