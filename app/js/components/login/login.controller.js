@@ -12,9 +12,9 @@
             bindings: {}
         });
     
-    loginController.$inject = ['AuthenticationService'];
+    loginController.$inject = ['AuthenticationService', '$state'];
 
-    function loginController(authenticationService) {
+    function loginController(authenticationService, $state) {
         var vm = this;
         vm.$onInit = onInit;
 
@@ -25,16 +25,22 @@
                 username: '',
                 password: ''
             }
+            vm.failedLogin = false;
         }
 
         function login() {
+            vm.failedLogin = false;
             if (vm.loginForm.$invalid) {
                 return;
             }
             authenticationService.getToken(vm.credenciales).then(function (response) {
-                console.log(response);
+                if (response.status === 200) {
+                    $state.go('noticias', {});
+                } else {
+                    vm.failedLogin = true;
+                }
             }).catch(function (error) {
-                console.log(error);
+                vm.failedLogin = true;
             });
         }
     }

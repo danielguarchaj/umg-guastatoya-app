@@ -12,23 +12,25 @@
             bindings: {}
         });
     
-    noticiasController.$inject = ['NoticiasService'];
+    noticiasController.$inject = ['NoticiasService', 'AuthenticationService', '$q'];
 
-    function noticiasController(noticiasService) {
+    function noticiasController(noticiasService, authenticationService, $q) {
         var vm = this;
         vm.$onInit = onInit;
 
         function onInit() {
             vm.noticias = [];
-            getNoticias();
+            vm.clasificaciones = [];
+            vm.authenticationService = authenticationService;
+            initialLoad();
         }
 
-        function getNoticias() {
-            noticiasService.getNoticias().then(function (response) {
-                vm.noticias = response.data;
-            }).catch(function (error) {
-                console.log(error);
-            });
+        function initialLoad() {
+            var promises = [noticiasService.getNoticias(), noticiasService.getClasificaciones()];
+            $q.all(promises).then(function (responses) {
+                vm.noticias = responses[0];
+                vm.clasificaciones = responses[1];
+            })
         }
     }
 

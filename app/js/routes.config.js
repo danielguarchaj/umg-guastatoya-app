@@ -8,15 +8,17 @@
     transitions.$inject = ['$transitions', '$state', '$window', 'ValidationsService', 'AuthenticationService'];
 
     function transitions($transitions, $state, $window, validationsService, authenticationService) {
-        $transitions.onBefore({ to: "*" }, function (transition) {
-            var stateService = transition.router.stateService;
-            var params = transition.params();
+        var targetState = {
+            to: function (state) {
+                    return state.name === 'noticias'
+            }
+        }
+        $transitions.onBefore(targetState, function (transition) {
             // If the user is logged in
-            if ($window.localStorage.token && $wwindow.localStorage.refresh) {
-                return authenticationService.getCurrentUser($wwindow.localStorage.refresh).then(function () {
-                    
-                });
-
+            if (authenticationService.validSession()) {
+                return authenticationService.refreshSession();
+            } else {
+                authenticationService.logout();
             }
         });
 

@@ -31,6 +31,9 @@
                 <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30" ng-click="vm.login()">
                     Iniciar Sesion
                 </button>
+                <p ng-if="vm.failedLogin" class="text-danger">
+                    <strong>Usuario o contraseña incorrectos, intente nuevamente.</strong>
+                </p>
             </form>
         </div>
         </div>
