@@ -12,19 +12,15 @@
             getClasificaciones: getClasificaciones
         };
 
-        var sessionData = authenticationService.getSessionData();
-
-        var headers = {
-            Authorization: 'Bearer ' + sessionData.access
-        }
-
         return repository;
 
-        function getNoticias() {
+        function getNoticias(clasificacionId) {
             return $http({
                 method: 'GET',
-                url: apiUrl + 'publicaciones/',
-                headers: headers
+                url: clasificacionId ? apiUrl + 'publicaciones?' + 'clasificacion_id=' + clasificacionId : apiUrl + 'publicaciones/',
+                headers: {
+                    Authorization: 'Bearer ' + authenticationService.sessionData.access
+                }
             }).then(function (response) {
                 return response;
             }).catch(error);
@@ -34,7 +30,9 @@
             return $http({
                 method: 'GET',
                 url: apiUrl + 'clasificaciones/',
-                headers: headers
+                headers: {
+                    Authorization: 'Bearer ' + authenticationService.sessionData.access
+                }
             }).then(function (response) {
                 return response;
             }).catch(error);

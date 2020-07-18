@@ -35,9 +35,21 @@
         });
 
         states.push({
+            name: 'noticias.crear',
+            url: 'crear',
+            component: 'noticiaForm'
+        });
+
+        states.push({
             name: 'login',
             url: '/login',
             component: 'login'
+        });
+
+        states.push({
+            name: 'evaluaciones',
+            url: '/evaluaciones',
+            component: 'evaluaciones'
         });
 
         angular.forEach(states, function(state) {

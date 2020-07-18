@@ -19,19 +19,16 @@
         vm.$onInit = onInit;
 
         function onInit() {
-            vm.noticias = [];
-            vm.clasificaciones = [];
             vm.authenticationService = authenticationService;
+            vm.noticiasService = noticiasService;
             initialLoad();
         }
 
         function initialLoad() {
-            var promises = [noticiasService.getNoticias(), noticiasService.getClasificaciones()];
-            $q.all(promises).then(function (responses) {
-                vm.noticias = responses[0];
-                vm.clasificaciones = responses[1];
-            })
+            var promises = [noticiasService.getNoticias(null, 'Publicaciones Recientes'), noticiasService.getClasificaciones()];
+            $q.all(promises)
         }
+
     }
 
 })();
