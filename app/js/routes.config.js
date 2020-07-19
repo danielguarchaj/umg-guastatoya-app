@@ -11,6 +11,8 @@
         var targetState = {
             to: function (state) {
                     return state.name === 'noticias'
+                        || state.name === 'noticiasCrear' 
+                        || state.name === 'evaluaciones' 
             }
         }
         $transitions.onBefore(targetState, function (transition) {
@@ -35,8 +37,8 @@
         });
 
         states.push({
-            name: 'noticias.crear',
-            url: 'crear',
+            name: 'noticiasCrear',
+            url: '/crear-noticia/',
             component: 'noticiaForm'
         });
 

@@ -10,6 +10,7 @@
 
         service.getNoticias = getNoticias;
         service.getClasificaciones = getClasificaciones;
+        service.getFormData = getFormData;
         service.noticias = [];
         service.clasificaciones = [];
         service.tituloNoticias = 'Publicaciones recientes';
@@ -33,6 +34,17 @@
             }).catch(function (error) {
                 return error;
             })
+        }
+
+        function getFormData(model) {
+            var formData = new FormData();
+            formData.append('titulo', model.titulo);
+            formData.append('contenido', model.contenido);
+            formData.append('clasificacion', model.clasificacion);
+            formData.append('autor', model.autor);
+            // Attach file
+            model.imagen ? formData.append('imagen', model.imagen) : false;
+            return formData;
         }
 
     }
