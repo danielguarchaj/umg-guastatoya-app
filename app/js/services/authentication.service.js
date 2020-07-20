@@ -25,7 +25,7 @@
 
         function validSession () {
             service.sessionData = getSessionData();
-            return service.sessionData.access || service.sessionData.refresh;
+            return service.sessionData.access && service.sessionData.refresh;
         }
 
 
