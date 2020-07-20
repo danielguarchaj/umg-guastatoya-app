@@ -52,6 +52,9 @@
                 processData: false,
                 contentType: false,
                 type: 'POST',
+                headers: {
+                    Authorization: 'Bearer ' + authenticationService.sessionData.access
+                },
                 success: function(response){
                     if (response.id) {
                         alert('Publicacion creada con exito');
