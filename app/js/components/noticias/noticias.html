@@ -3,35 +3,21 @@
   <header-component></header-component>
   <div class="content pb-0">
     <div class="row">
-      <div class="card-lg-6">
-        <div class="card">
-          <div class="card-body">
-            <h4 class="card-title box-title">{{vm.noticiasService.tituloNoticias}}</h4>
-            <div class="card-content">
-              <div class="messenger-box">
-                <ul>
-                  <li ng-repeat="noticia in vm.noticiasService.noticias track by $index">
-                    <div class="msg-container msg-received">
-                      <div class="avatar">
-                        <img src="{{noticia.imagen}}" alt="" />
-                        <div class="send-time">{{noticia.fecha_hora_creacion | date:'medium'}}</div>
-                      </div>
-                      <div class="msg-box">
-                        <div class="inner-box">
-                          <div class="name">
-                            {{noticia.titulo}} <strong> | {{noticia.clasificacion.nombre}}</strong>
-                          </div>
-                          <div class="meg">
-                            {{noticia.contenido}}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
+      <div class="card" ng-repeat="p in vm.noticiasService.noticias track by $index">
+        <img
+          class="card-img-top"
+          src="{{p.imagen}}"
+          alt="Card image cap"
+          ng-if="p.imagen"
+        />
+        <div class="card-body">
+          <h4 class="card-title mb-3">{{p.titulo}} <strong>| {{p.clasificacion.nombre}}</strong> </h4>
+          <p class="card-text">
+            {{p.contenido}}
+          </p>
+        </div>
+        <div class="card-footer">
+          <strong class="card-title mb-3">{{p.autor.first_name}} {{p.autor.last_name}} | {{p.fecha_hora_creacion | date:'medium'}}</strong>
         </div>
       </div>
     </div>
