@@ -9,7 +9,9 @@
             }],
             controller: 'headerController',
             controllerAs: 'vm', //View Model
-            bindings: {}
+            bindings: {
+                content: '<'
+            }
         });
     
     headerController.$inject = ['AuthenticationService'];

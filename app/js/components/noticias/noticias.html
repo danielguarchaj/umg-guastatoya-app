@@ -3,7 +3,12 @@
   <header-component></header-component>
   <div class="content pb-0">
     <div class="row">
-      <div class="card" ng-repeat="p in vm.noticiasService.noticias track by $index">
+      <div class="card w-100">
+        <div class="card-footer">
+          <strong class="card-title mb-3">{{vm.noticiasService.tituloNoticias}}</strong>
+        </div>
+      </div>
+      <div class="card w-100" ng-repeat="p in vm.noticiasService.noticias track by $index">
         <img
           class="card-img-top"
           src="{{p.imagen}}"
@@ -11,7 +16,7 @@
           ng-if="p.imagen"
         />
         <div class="card-body">
-          <h4 class="card-title mb-3">{{p.titulo}} <strong>| {{p.clasificacion.nombre}}</strong> </h4>
+          <h4 class="card-title mb-3">{{p.titulo}} <strong ng-if="vm.noticiasService.tituloNoticias === 'Publicaciones Recientes'">| {{p.clasificacion.nombre}}</strong> </h4>
           <p class="card-text">
             {{p.contenido}}
           </p>

@@ -64,7 +64,7 @@
                 error: function(error) {
                     alert('Error al crear la publicacion, intente de nuevo.');
                 }
-              });
+            });
         }
     }
 

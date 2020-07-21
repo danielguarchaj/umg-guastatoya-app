@@ -57,9 +57,7 @@
             return AuthenticationRepository.refreshToken(refreshData).then(function(response) {
                 parseJwt(response.data.access);
                 return response;
-            }).catch(function(error) {
-                return error;
-            });
+            }).catch(verifyErrorType);
         }
 
         function verifyErrorType(error) {

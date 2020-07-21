@@ -10,9 +10,8 @@
     function transitions($transitions, $state, $window, validationsService, authenticationService) {
         var targetState = {
             to: function (state) {
-                    return state.name === 'noticias'
-                        || state.name === 'noticiasCrear' 
-                        || state.name === 'evaluaciones' 
+                    return state.name === 'noticiasCrear' 
+                        || state.name === 'evaluaciones';
             }
         }
         $transitions.onBefore(targetState, function (transition) {
@@ -38,8 +37,20 @@
 
         states.push({
             name: 'noticiasCrear',
-            url: '/crear-noticia/',
-            component: 'noticiaForm'
+            url: '/crear-noticia/:id',
+            component: 'noticiaForm',
+            params: {
+                id: {type: 'int', value: null}
+            },
+            resolve: {
+                noticia: [
+                    'NoticiasService', '$stateParams', function (noticiasService, $stateParams) {
+                        if ($stateParams.id) {
+                            return noticiasService.getNoticia($stateParams.id);
+                        }
+                    }
+                ]
+            }
         });
 
         states.push({

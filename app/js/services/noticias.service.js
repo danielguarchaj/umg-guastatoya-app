@@ -10,6 +10,7 @@
 
         service.getNoticias = getNoticias;
         service.getClasificaciones = getClasificaciones;
+        service.getNoticia = getNoticia;
         service.getFormData = getFormData;
         service.noticias = [];
         service.clasificaciones = [];
@@ -22,6 +23,14 @@
                 service.tituloNoticias = tituloNoticias;
                 service.noticias = response.data;
                 return service.noticias;
+            }).catch(function (error) {
+                return error;
+            })
+        }
+
+        function getNoticia(noticiaId) {
+            return noticiasRepository.getNoticia(noticiaId).then(function (response) {
+                return response.data;
             }).catch(function (error) {
                 return error;
             })

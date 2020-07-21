@@ -20,7 +20,7 @@
 
         function onInit() {
             vm.noticias = [];
-            vm.login = login;
+            vm.loginFunction = login;
             vm.credenciales = {
                 username: '',
                 password: ''
