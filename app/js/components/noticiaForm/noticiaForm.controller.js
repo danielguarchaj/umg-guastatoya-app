@@ -37,7 +37,8 @@
             if (vm.noticia) {
                 vm.noticiaModel.titulo = vm.noticia.titulo;
                 vm.noticiaModel.contenido = vm.noticia.contenido;
-                vm.noticiaModel.clasificacion = vm.noticia.clasificacion;
+                vm.noticiaModel.clasificacion = vm.noticia.clasificacion.id;
+                vm.noticiaModel.autor = vm.noticia.autor.id;
             }
         }
 
@@ -52,24 +53,29 @@
                 return;
             }
             vm.noticiaModel.imagen = $scope.file;
-            var formData = noticiasService.getFormData(vm.noticiaModel);
+            var errorText = vm.noticia ? 'Error al editar la publicacion, intente de nuevo.' : 'Error al crear la publicacion, intente de nuevo.';
+            var successText = vm.noticia ? 'Publicacion editada con exito.' : 'Publicacion creada con exito.';
+            var autor = vm.noticia ? vm.noticia.autor : null;
+            var formData = noticiasService.getFormData(vm.noticiaModel, autor);
+            var method = vm.noticia ? 'PATCH' : 'POST';
+            var url = vm.noticia ? apiUrl + 'publicaciones/' + vm.noticia.id + '/' : apiUrl + 'publicaciones/';
             jQuery.ajax({
-                url: apiUrl + 'publicaciones/',
+                url: url,
                 data: formData,
                 processData: false,
                 contentType: false,
-                type: 'POST',
+                type: method,
                 headers: {
                     Authorization: 'Bearer ' + authenticationService.sessionData.access
                 },
                 success: function(response){
                     if (response.id) {
-                        alert('Publicacion creada con exito');
-                        $window.location.reload();
+                        alert(successText);
+                        !vm.noticia ? $window.location.reload() : false;
                     }
                 },
                 error: function(error) {
-                    alert('Error al crear la publicacion, intente de nuevo.');
+                    alert(errorText);
                 }
             });
         }

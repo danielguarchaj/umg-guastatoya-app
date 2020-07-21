@@ -10,14 +10,15 @@
         var repository = {
             getNoticias: getNoticias,
             getClasificaciones: getClasificaciones,
-            getNoticia: getNoticia
+            getNoticia: getNoticia,
+            eliminarNoticia: eliminarNoticia
         };
 
         return repository;
 
         function getHeaders() {
             if (authenticationService.validSession()) {
-                return headers = {
+                return {
                     Authorization: 'Bearer ' + authenticationService.sessionData.access
                 };
             }else{
@@ -29,7 +30,7 @@
             return $http({
                 method: 'GET',
                 url: clasificacionId ? apiUrl + 'publicaciones?' + 'clasificacion_id=' + clasificacionId : apiUrl + 'publicaciones/',
-                headers: getHeaders
+                headers: getHeaders()
             }).then(function (response) {
                 return response;
             }).catch(error);
@@ -39,7 +40,7 @@
             return $http({
                 method: 'GET',
                 url: apiUrl + 'publicaciones/' + noticiaId,
-                headers: getHeaders
+                headers: getHeaders()
             }).then(function (response) {
                 return response;
             }).catch(error);
@@ -49,7 +50,17 @@
             return $http({
                 method: 'GET',
                 url: apiUrl + 'clasificaciones/',
-                headers: getHeaders
+                headers: getHeaders()
+            }).then(function (response) {
+                return response;
+            }).catch(error);
+        }
+
+        function eliminarNoticia(noticiaId) {
+            return $http({
+                method: 'DELETE',
+                url: apiUrl + 'publicaciones/' + noticiaId + '/',
+                headers: getHeaders()
             }).then(function (response) {
                 return response;
             }).catch(error);

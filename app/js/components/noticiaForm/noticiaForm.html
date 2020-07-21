@@ -58,9 +58,9 @@
                   id="select"
                   class="form-control"
                   ng-model="vm.noticiaModel.clasificacion"
-                  ng-options="c.id as c.nombre for c in vm.noticiasService.clasificaciones track by c.id"
                   required
                   >
+                  <option value="{{c.id}}" ng-repeat="c in vm.noticiasService.clasificaciones track by $index">{{c.nombre}}</option>
                 </select>
                 <small class="form-text text-danger" ng-if="vm.noticiaForm.categoria.$invalid">*Ingrese el categoria</small>
               </div>

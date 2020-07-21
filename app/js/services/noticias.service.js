@@ -3,15 +3,16 @@
     angular.module('UniversidadApp')
         .service('NoticiasService', NoticiasService);
     
-    NoticiasService.$inject = ['NoticiasRepository'];
+    NoticiasService.$inject = ['NoticiasRepository', '$filter'];
 
-    function NoticiasService(noticiasRepository) {
+    function NoticiasService(noticiasRepository, $filter) {
         var service = this;
 
         service.getNoticias = getNoticias;
         service.getClasificaciones = getClasificaciones;
         service.getNoticia = getNoticia;
         service.getFormData = getFormData;
+        service.eliminarNoticia = eliminarNoticia;
         service.noticias = [];
         service.clasificaciones = [];
         service.tituloNoticias = 'Publicaciones recientes';
@@ -45,7 +46,22 @@
             })
         }
 
-        function getFormData(model) {
+        function eliminarNoticia(noticiaId) {
+            return noticiasRepository.eliminarNoticia(noticiaId).then(function (response) {
+                removerNoticia(noticiaId);
+                return response.status;
+            }).catch(function(error) {
+                return error;
+            })
+        }
+
+        function removerNoticia(noticiaId) {
+            service.noticias = $filter('filter')(service.noticias, function (noticia) {
+                return noticia.id != noticiaId;
+            });
+        }
+
+        function getFormData(model, autorId) {
             var formData = new FormData();
             formData.append('titulo', model.titulo);
             formData.append('contenido', model.contenido);
@@ -53,6 +69,7 @@
             formData.append('autor', model.autor);
             // Attach file
             model.imagen ? formData.append('imagen', model.imagen) : false;
+            
             return formData;
         }
 
