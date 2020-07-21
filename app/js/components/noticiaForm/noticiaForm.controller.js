@@ -9,12 +9,14 @@
             }],
             controller: 'noticiaFormController',
             controllerAs: 'vm', //View Model
-            bindings: {}
+            bindings: {
+                noticia: '<'
+            }
         });
     
-    noticiaFormController.$inject = ['AuthenticationService', 'NoticiasService', '$q', '$scope', 'apiUrl', '$window'];
+    noticiaFormController.$inject = ['AuthenticationService', 'NoticiasService', '$q', '$scope', 'apiUrl', '$window', '$stateParams'];
 
-    function noticiaFormController(authenticationService, noticiasService, $q, $scope, apiUrl, $window) {
+    function noticiaFormController(authenticationService, noticiasService, $q, $scope, apiUrl, $window, $stateParams) {
         var vm = this;
         vm.$onInit = onInit;
         function onInit() {
@@ -31,6 +33,11 @@
                 clasificacion: null,
                 imagen: null,
                 autor: authenticationService.currentUser.id
+            }
+            if (vm.noticia) {
+                vm.noticiaModel.titulo = vm.noticia.titulo;
+                vm.noticiaModel.contenido = vm.noticia.contenido;
+                vm.noticiaModel.clasificacion = vm.noticia.clasificacion;
             }
         }
 

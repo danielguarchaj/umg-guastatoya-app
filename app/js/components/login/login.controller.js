@@ -19,6 +19,7 @@
         vm.$onInit = onInit;
 
         function onInit() {
+            verifySession();
             vm.noticias = [];
             vm.loginFunction = login;
             vm.credenciales = {
@@ -26,6 +27,12 @@
                 password: ''
             }
             vm.failedLogin = false;
+        }
+
+        function verifySession() {
+            if (authenticationService.validSession()) {
+                $state.go('noticias', {});
+            }
         }
 
         function login() {

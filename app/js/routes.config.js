@@ -10,16 +10,27 @@
     function transitions($transitions, $state, $window, validationsService, authenticationService) {
         var targetState = {
             to: function (state) {
-                    return state.name === 'noticiasCrear' 
+                    return state.name === 'noticia' 
                         || state.name === 'evaluaciones';
             }
         }
-        $transitions.onBefore(targetState, function (transition) {
+        // $transitions.onBefore(targetState, function (transition) {
+        //     // If the user is logged in
+        //     if (authenticationService.validSession()) {
+        //         return authenticationService.refreshSession();
+        //     } else {
+        //         authenticationService.logout();
+        //         return;
+        //     }
+        // });
+
+        $transitions.onStart(targetState, function(transition) {
             // If the user is logged in
             if (authenticationService.validSession()) {
                 return authenticationService.refreshSession();
             } else {
                 authenticationService.logout();
+                return;
             }
         });
 
@@ -36,20 +47,18 @@
         });
 
         states.push({
-            name: 'noticiasCrear',
-            url: '/crear-noticia/:id',
+            name: 'noticia',
+            url: '/noticia/:id',
             component: 'noticiaForm',
             params: {
                 id: {type: 'int', value: null}
             },
             resolve: {
-                noticia: [
-                    'NoticiasService', '$stateParams', function (noticiasService, $stateParams) {
-                        if ($stateParams.id) {
-                            return noticiasService.getNoticia($stateParams.id);
-                        }
+                noticia: function ($stateParams, NoticiasService) {
+                    if ($stateParams.id) {
+                        return NoticiasService.getNoticia($stateParams.id);
                     }
-                ]
+                }
             }
         });
 
