@@ -10,7 +10,8 @@
             controller: 'evaluacionFormController',
             controllerAs: 'vm', //View Model
             bindings: {
-                cursos: '<'
+                cursos: '<',
+                evaluacion: '<'
             }
         });
     
@@ -22,6 +23,15 @@
         function onInit() {
             vm.authenticationService = authenticationService;
             vm.evaluacionesService = EvaluacionesService;
+            
+            vm.agregarPregunta = agregarPregunta;
+            vm.agregarRespuesta = agregarRespuesta;
+            vm.guardarEvaluacion = guardarEvaluacion;
+            
+            setEvaluacionModel();
+        }
+
+        function setEvaluacionModel () {
             vm.evaluacionModel = {
                 catedratico: authenticationService.currentUser.id,
                 preguntas: [
@@ -36,10 +46,16 @@
                 titulo: '',
                 curso: null
             }
-
-            vm.agregarPregunta = agregarPregunta;
-            vm.agregarRespuesta = agregarRespuesta;
-            vm.guardarEvaluacion = guardarEvaluacion;
+            if (!vm.evaluacion) {
+                return;
+            }
+            vm.evaluacionModel = {
+                catedratico: vm.evaluacion.catedratico.id,
+                preguntas: vm.evaluacion.preguntas,
+                titulo: vm.evaluacion.titulo,
+                curso: vm.evaluacion.curso.id,
+                id: vm.evaluacion.id
+            }
         }
 
         function agregarPregunta() {
@@ -64,11 +80,24 @@
             if (vm.evaluacionForm.$invalid) {
                 return;
             }
-            EvaluacionesService.guardarEvaluacion(vm.evaluacionModel).then(function(response) {
-                console.log(response);
-            }).catch(function(error) {
-                console.log(error);
-            })
+            if (vm.evaluacion) {
+                EvaluacionesService.editarEvaluacion(vm.evaluacionModel).then(function(response) {
+                    if (response.status === 200) {
+                        alert('Evaluacion editada con exito');
+                    }
+                }).catch(function(error) {
+                    alert('No se pudieron guardar los cambios en la evaluacion, intente nuevamente')
+                });
+            }else{
+                EvaluacionesService.guardarEvaluacion(vm.evaluacionModel).then(function(response) {
+                    if (response.status === 201) {
+                        alert('Evaluacion creada con exito');
+                        $state.go('evaluaciones', {});
+                    }
+                }).catch(function(error) {
+                    alert('No se pudo guardar la evaluacion, intente nuevamente')
+                });
+            }
         }
     }
 

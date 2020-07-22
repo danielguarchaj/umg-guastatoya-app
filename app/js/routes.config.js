@@ -63,16 +63,29 @@
         states.push({
             name: 'evaluaciones',
             url: '/evaluaciones',
-            component: 'evaluaciones'
+            component: 'evaluaciones',
+            resolve: {
+                evaluaciones: function(EvaluacionesService) {
+                    return EvaluacionesService.getEvaluaciones();
+                }
+            }
         });
 
         states.push({
             name: 'evaluacion',
-            url: '/evaluacion',
+            url: '/evaluacion/:id',
             component: 'evaluacionForm',
+            params: {
+                id: {type: 'int', value: null}
+            },
             resolve: {
                 cursos: function(EvaluacionesService) {
                     return EvaluacionesService.getCursos();
+                },
+                evaluacion: function ($stateParams, EvaluacionesService) {
+                    if ($stateParams.id) {
+                        return EvaluacionesService.getEvaluacion($stateParams.id);
+                    }
                 }
             }
         });

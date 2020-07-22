@@ -9,7 +9,10 @@
     function EvaluacionesRepository($http, $q, apiUrl, authenticationService) {
         var repository = {
             guardarEvaluacion: guardarEvaluacion,
-            getCursos: getCursos
+            getCursos: getCursos,
+            getEvaluaciones: getEvaluaciones,
+            getEvaluacion: getEvaluacion,
+            editarEvaluacion: editarEvaluacion
         };
 
         return repository;
@@ -25,10 +28,41 @@
             }).catch(error);
         }
 
+        function editarEvaluacion(data) {
+            return $http({
+                method: 'POST',
+                url: apiUrl + 'evaluaciones/update/',
+                data: data,
+                headers: authenticationService.getHeaders()
+            }).then(function (response) {
+                return response;
+            }).catch(error);
+        }
+
         function getCursos() {
             return $http({
                 method: 'GET',
                 url: apiUrl + 'evaluaciones/cursos/',
+                headers: authenticationService.getHeaders()
+            }).then(function (response) {
+                return response;
+            }).catch(error);
+        }
+
+        function getEvaluaciones() {
+            return $http({
+                method: 'GET',
+                url: apiUrl + 'evaluaciones/',
+                headers: authenticationService.getHeaders()
+            }).then(function (response) {
+                return response;
+            }).catch(error);
+        }
+
+        function getEvaluacion(evaluacionId) {
+            return $http({
+                method: 'GET',
+                url: apiUrl + 'evaluaciones/' + evaluacionId,
                 headers: authenticationService.getHeaders()
             }).then(function (response) {
                 return response;

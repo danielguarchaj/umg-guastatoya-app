@@ -10,11 +10,38 @@
 
         service.guardarEvaluacion = guardarEvaluacion;
         service.getCursos = getCursos;
+        service.getEvaluaciones = getEvaluaciones;
+        service.getEvaluacion = getEvaluacion;
+        service.editarEvaluacion = editarEvaluacion;
         return service;
 
         function guardarEvaluacion(evaluacionModel) {
             return EvaluacionesRepository.guardarEvaluacion(evaluacionModel).then(function(response) {
                 return response;
+            }).catch(function(error) {
+                return error;
+            });
+        }
+
+        function editarEvaluacion(evaluacionModel) {
+            return EvaluacionesRepository.editarEvaluacion(evaluacionModel).then(function(response) {
+                return response;
+            }).catch(function(error) {
+                return error;
+            });
+        }
+
+        function getEvaluaciones() {
+            return EvaluacionesRepository.getEvaluaciones().then(function(response) {
+                return response.data;
+            }).catch(function(error) {
+                return error;
+            });
+        }
+
+        function getEvaluacion(evaluacionId) {
+            return EvaluacionesRepository.getEvaluacion(evaluacionId).then(function(response) {
+                return response.data;
             }).catch(function(error) {
                 return error;
             });

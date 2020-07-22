@@ -9,16 +9,24 @@
             }],
             controller: 'evaluacionesController',
             controllerAs: 'vm', //View Model
-            bindings: {}
+            bindings: {
+                evaluaciones: '<'
+            }
         });
     
-    evaluacionesController.$inject = ['AuthenticationService'];
+    evaluacionesController.$inject = ['AuthenticationService', '$state'];
 
-    function evaluacionesController(authenticationService) {
+    function evaluacionesController(authenticationService, $state) {
         var vm = this;
         vm.$onInit = onInit;
         function onInit() {
             vm.authenticationService = authenticationService;
+
+            vm.editarEvaluacion = editarEvaluacion;
+        }
+
+        function editarEvaluacion(evaluacionId) {
+            $state.go('evaluacion', {id: evaluacionId});
         }
     }
 
