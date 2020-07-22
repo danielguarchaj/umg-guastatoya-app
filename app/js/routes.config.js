@@ -69,7 +69,12 @@
         states.push({
             name: 'evaluacion',
             url: '/evaluacion',
-            component: 'evaluacionForm'
+            component: 'evaluacionForm',
+            resolve: {
+                cursos: function(EvaluacionesService) {
+                    return EvaluacionesService.getCursos();
+                }
+            }
         });
 
         angular.forEach(states, function(state) {

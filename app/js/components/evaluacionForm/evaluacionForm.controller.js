@@ -9,7 +9,9 @@
             }],
             controller: 'evaluacionFormController',
             controllerAs: 'vm', //View Model
-            bindings: {}
+            bindings: {
+                cursos: '<'
+            }
         });
     
     evaluacionFormController.$inject = ['AuthenticationService', 'EvaluacionesService'];
@@ -19,6 +21,7 @@
         vm.$onInit = onInit;
         function onInit() {
             vm.authenticationService = authenticationService;
+            vm.evaluacionesService = EvaluacionesService;
             vm.evaluacionModel = {
                 catedratico: authenticationService.currentUser.id,
                 preguntas: [
@@ -31,7 +34,7 @@
                     }
                 ],
                 titulo: '',
-                curso: 1
+                curso: null
             }
 
             vm.agregarPregunta = agregarPregunta;
@@ -57,6 +60,10 @@
         }
 
         function guardarEvaluacion () {
+            vm.evaluacionForm.$submitted = true;
+            if (vm.evaluacionForm.$invalid) {
+                return;
+            }
             EvaluacionesService.guardarEvaluacion(vm.evaluacionModel).then(function(response) {
                 console.log(response);
             }).catch(function(error) {

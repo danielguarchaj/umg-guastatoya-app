@@ -20,30 +20,34 @@
                     >Titulo</label
                   >
                   <input
-                    id="cc-payment"
+                    id="titulo"
                     name="titulo"
                     type="text"
                     class="form-control"
                     required
+                    ng-model="vm.evaluacionModel.titulo"
                   />
+                  <small class="form-text text-danger" ng-if="vm.evaluacionForm.titulo.$invalid && vm.evaluacionForm.$submitted">*Ingrese el titulo</small>
                 </div>
                 <div class="form-group">
                   <label for="cc-payment" class="control-label mb-1"
                     >Curso</label
                   >
                   <select
-                    id="cc-payment"
+                    id="curso"
                     name="curso"
                     type="text"
                     class="form-control"
                     required
+                    ng-model="vm.evaluacionModel.curso"
                   >
                     <option
-                      value="c.nombre"
+                      value="{{c.id}}"
                       ng-repeat="c in vm.cursos track by $index"
                       >{{c.nombre}}</option
                     >
                   </select>
+                  <small class="form-text text-danger" ng-if="vm.evaluacionForm.curso.$invalid && vm.evaluacionForm.$submitted">*Ingrese el curso</small>
                 </div>
                 <div>
                   <div class="card-title">
@@ -58,17 +62,18 @@
                   >
                     <hr/>
                     <div class="form-group">
-                      <label for="cc-payment" class="control-label mb-1"
+                      <label for="pregunta{{preguntaIndex}}" class="control-label mb-1"
                         >Pregunta {{preguntaIndex + 1}}</label
                       >
                       <input
-                        id="cc-payment"
+                        id="pregunta{{preguntaIndex}}"
                         name="pregunta{{preguntaIndex}}"
                         type="text"
                         class="form-control"
                         ng-model="vm.evaluacionModel.preguntas[preguntaIndex].titulo"
                         required
                       />
+                      <small class="form-text text-danger" ng-if="vm.evaluacionForm['pregunta' + preguntaIndex].$invalid && vm.evaluacionForm.$submitted">*Ingrese una pregunta valida</small>
                     </div>
                     <div class="w-75 justify-content-center ml-5">
                       <div
@@ -76,17 +81,18 @@
                         ng-repeat="respuesta in vm.evaluacionModel.preguntas[preguntaIndex].respuestas"
                         ng-init="respuestaIndex = $index"
                       >
-                        <label for="cc-payment" class="control-label mb-1"
+                        <label for="respuesta{{preguntaIndex}}{{respuestaIndex}}" class="control-label mb-1"
                           >Respuesta {{respuestaIndex + 1}}</label
                         >
                         <input
-                          id="cc-payment"
+                          id="respuesta{{preguntaIndex}}{{respuestaIndex}}"
                           name="respuesta{{preguntaIndex}}{{respuestaIndex}}"
                           type="text"
                           class="form-control"
                           ng-model="vm.evaluacionModel.preguntas[preguntaIndex].respuestas[respuestaIndex].titulo"
                           required
                         />
+                        <small class="form-text text-danger mb-1" ng-if="vm.evaluacionForm['respuesta' + preguntaIndex + '' + respuestaIndex ].$invalid && vm.evaluacionForm.$submitted">*Ingrese una respuesta valida</small>
                         <label
                           class="switch switch-text switch-primary switch-pill"
                           ><input
@@ -101,7 +107,7 @@
                       </div>
                       <button
                         id="payment-button"
-                        type="submit"
+                        type="button"
                         class="btn btn-lg btn-success btn-sm"
                         ng-click="vm.agregarRespuesta(preguntaIndex)"
                       >
@@ -115,7 +121,7 @@
                   <hr />
                   <button
                     id="payment-button"
-                    type="submit"
+                    type="button"
                     class="btn btn-lg btn-info btn-block"
                     ng-click="vm.agregarPregunta()"
                   >
