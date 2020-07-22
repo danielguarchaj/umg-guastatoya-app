@@ -11,18 +11,10 @@
         var targetState = {
             to: function (state) {
                     return state.name === 'noticia' 
-                        || state.name === 'evaluaciones';
+                        || state.name === 'evaluaciones'
+                        || state.name === 'evaluacion';
             }
         }
-        // $transitions.onBefore(targetState, function (transition) {
-        //     // If the user is logged in
-        //     if (authenticationService.validSession()) {
-        //         return authenticationService.refreshSession();
-        //     } else {
-        //         authenticationService.logout();
-        //         return;
-        //     }
-        // });
 
         $transitions.onStart(targetState, function(transition) {
             // If the user is logged in
@@ -72,6 +64,12 @@
             name: 'evaluaciones',
             url: '/evaluaciones',
             component: 'evaluaciones'
+        });
+
+        states.push({
+            name: 'evaluacion',
+            url: '/evaluacion',
+            component: 'evaluacionForm'
         });
 
         angular.forEach(states, function(state) {

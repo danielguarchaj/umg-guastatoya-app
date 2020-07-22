@@ -16,6 +16,7 @@
         service.validSession = validSession;
         service.logout = logout;
         service.verifyErrorType = verifyErrorType;
+        service.getHeaders = getHeaders;
 
         // Values
         service.currentUser = {};
@@ -69,7 +70,7 @@
         function logout() {
             $window.localStorage.removeItem('access');
             $window.localStorage.removeItem('refresh');
-            $state.go('login', {});
+            $state.go('noticias', {});
         }
 
         function parseJwt (token) {
@@ -81,7 +82,17 @@
         
             var jwtPayload = JSON.parse(jsonPayload);
             service.currentUser = jwtPayload.user;
-        };
+        }
+
+        function getHeaders() {
+            if (validSession()) {
+                return {
+                    Authorization: 'Bearer ' + service.sessionData.access
+                };
+            }else{
+                return {};
+            }
+        }
 
     }
 
