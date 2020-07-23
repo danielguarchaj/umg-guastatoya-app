@@ -21,12 +21,17 @@
         vm.$onInit = onInit;
         function onInit() {
             vm.authenticationService = authenticationService;
-
+            
             vm.editarEvaluacion = editarEvaluacion;
+            vm.resolverEvaluacion = resolverEvaluacion;
         }
 
         function editarEvaluacion(evaluacionId) {
             $state.go('evaluacion', {id: evaluacionId});
+        }
+
+        function resolverEvaluacion(evaluacionId) {
+            $state.go('evaluacionResolver', {id: evaluacionId});
         }
     }
 

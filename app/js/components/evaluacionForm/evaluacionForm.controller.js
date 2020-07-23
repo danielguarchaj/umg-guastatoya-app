@@ -15,9 +15,9 @@
             }
         });
     
-    evaluacionFormController.$inject = ['AuthenticationService', 'EvaluacionesService'];
+    evaluacionFormController.$inject = ['AuthenticationService', 'EvaluacionesService', '$state'];
 
-    function evaluacionFormController(authenticationService, EvaluacionesService) {
+    function evaluacionFormController(authenticationService, EvaluacionesService, $state) {
         var vm = this;
         vm.$onInit = onInit;
         function onInit() {
@@ -90,7 +90,7 @@
                 });
             }else{
                 EvaluacionesService.guardarEvaluacion(vm.evaluacionModel).then(function(response) {
-                    if (response.status === 201) {
+                    if (response.status === 200) {
                         alert('Evaluacion creada con exito');
                         $state.go('evaluaciones', {});
                     }

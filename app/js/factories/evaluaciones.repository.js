@@ -12,10 +12,23 @@
             getCursos: getCursos,
             getEvaluaciones: getEvaluaciones,
             getEvaluacion: getEvaluacion,
-            editarEvaluacion: editarEvaluacion
+            editarEvaluacion: editarEvaluacion,
+            resolverEvaluacion: resolverEvaluacion,
+            getEvaluacionesResueltas: getEvaluacionesResueltas
         };
 
         return repository;
+
+        function resolverEvaluacion(data) {
+            return $http({
+                method: 'POST',
+                url: apiUrl + 'evaluaciones/solve/',
+                data: data,
+                headers: authenticationService.getHeaders()
+            }).then(function (response) {
+                return response;
+            }).catch(error);
+        }
 
         function guardarEvaluacion(data) {
             return $http({
@@ -53,6 +66,16 @@
             return $http({
                 method: 'GET',
                 url: apiUrl + 'evaluaciones/',
+                headers: authenticationService.getHeaders()
+            }).then(function (response) {
+                return response;
+            }).catch(error);
+        }
+
+        function getEvaluacionesResueltas() {
+            return $http({
+                method: 'GET',
+                url: apiUrl + 'evaluaciones/resueltas/',
                 headers: authenticationService.getHeaders()
             }).then(function (response) {
                 return response;

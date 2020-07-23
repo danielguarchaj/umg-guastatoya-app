@@ -12,6 +12,7 @@
             to: function (state) {
                     return state.name === 'noticia' 
                         || state.name === 'evaluaciones'
+                        || state.name === 'evaluacionResolver'
                         || state.name === 'evaluacion';
             }
         }
@@ -72,6 +73,17 @@
         });
 
         states.push({
+            name: 'evaluacionesResueltas',
+            url: '/evaluaciones-resueltas',
+            component: 'evaluacionesResueltas',
+            resolve: {
+                evaluacionesResueltas: function(EvaluacionesService) {
+                    return EvaluacionesService.getEvaluacionesResueltas();
+                }
+            }
+        });
+
+        states.push({
             name: 'evaluacion',
             url: '/evaluacion/:id',
             component: 'evaluacionForm',
@@ -82,6 +94,22 @@
                 cursos: function(EvaluacionesService) {
                     return EvaluacionesService.getCursos();
                 },
+                evaluacion: function ($stateParams, EvaluacionesService) {
+                    if ($stateParams.id) {
+                        return EvaluacionesService.getEvaluacion($stateParams.id);
+                    }
+                }
+            }
+        });
+
+        states.push({
+            name: 'evaluacionResolver',
+            url: '/evaluacion-resolver/:id',
+            component: 'evaluacionResolver',
+            params: {
+                id: {type: 'int', value: null}
+            },
+            resolve: {
                 evaluacion: function ($stateParams, EvaluacionesService) {
                     if ($stateParams.id) {
                         return EvaluacionesService.getEvaluacion($stateParams.id);
