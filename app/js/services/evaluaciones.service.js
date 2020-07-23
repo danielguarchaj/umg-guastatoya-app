@@ -15,6 +15,7 @@
         service.editarEvaluacion = editarEvaluacion;
         service.resolverEvaluacion = resolverEvaluacion;
         service.getEvaluacionesResueltas = getEvaluacionesResueltas;
+        service.getEvaluacionResuelta = getEvaluacionResuelta;
 
         return service;
 
@@ -60,6 +61,14 @@
 
         function getEvaluacion(evaluacionId) {
             return EvaluacionesRepository.getEvaluacion(evaluacionId).then(function(response) {
+                return response.data;
+            }).catch(function(error) {
+                return error;
+            });
+        }
+
+        function getEvaluacionResuelta(evaluacionId) {
+            return EvaluacionesRepository.getEvaluacionResuelta(evaluacionId).then(function(response) {
                 return response.data;
             }).catch(function(error) {
                 return error;

@@ -21,7 +21,11 @@
         vm.$onInit = onInit;
         function onInit() {
             vm.authenticationService = authenticationService;
-            
+            vm.verEvaluacionResuelta = verEvaluacionResuelta;   
+        }
+
+        function verEvaluacionResuelta (evaluacionId) {
+            $state.go('evaluacionResuelta', {id: evaluacionId});
         }
     }
 

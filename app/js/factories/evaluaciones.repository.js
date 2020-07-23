@@ -14,7 +14,8 @@
             getEvaluacion: getEvaluacion,
             editarEvaluacion: editarEvaluacion,
             resolverEvaluacion: resolverEvaluacion,
-            getEvaluacionesResueltas: getEvaluacionesResueltas
+            getEvaluacionesResueltas: getEvaluacionesResueltas,
+            getEvaluacionResuelta: getEvaluacionResuelta
         };
 
         return repository;
@@ -76,6 +77,16 @@
             return $http({
                 method: 'GET',
                 url: apiUrl + 'evaluaciones/resueltas/',
+                headers: authenticationService.getHeaders()
+            }).then(function (response) {
+                return response;
+            }).catch(error);
+        }
+
+        function getEvaluacionResuelta(evaluacionId) {
+            return $http({
+                method: 'GET',
+                url: apiUrl + 'evaluaciones/resueltas/' + evaluacionId,
                 headers: authenticationService.getHeaders()
             }).then(function (response) {
                 return response;

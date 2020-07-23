@@ -4,8 +4,11 @@
   <div class="content pb-0">
     <div class="row">
       <div class="card w-100">
-        <div class="card-header">
+        <div class="card-header" ng-if="!vm.evaluacion">
           <strong class="card-title">Crear </strong> Evaluacion
+        </div>
+        <div class="card-header" ng-if="vm.evaluacion">
+          <strong class="card-title">Editar </strong> Evaluacion
         </div>
         <div class="card-body">
           <div id="pay-invoice">

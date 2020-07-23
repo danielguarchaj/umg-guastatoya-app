@@ -13,6 +13,8 @@
                     return state.name === 'noticia' 
                         || state.name === 'evaluaciones'
                         || state.name === 'evaluacionResolver'
+                        || state.name === 'evaluacionesResueltas'
+                        || state.name === 'evaluacionResolver'
                         || state.name === 'evaluacion';
             }
         }
@@ -113,6 +115,22 @@
                 evaluacion: function ($stateParams, EvaluacionesService) {
                     if ($stateParams.id) {
                         return EvaluacionesService.getEvaluacion($stateParams.id);
+                    }
+                }
+            }
+        });
+
+        states.push({
+            name: 'evaluacionResuelta',
+            url: '/evaluacion-resuelta/:id',
+            component: 'evaluacionResuelta',
+            params: {
+                id: {type: 'int', value: null}
+            },
+            resolve: {
+                evaluacionResuelta: function ($stateParams, EvaluacionesService) {
+                    if ($stateParams.id) {
+                        return EvaluacionesService.getEvaluacionResuelta($stateParams.id);
                     }
                 }
             }
